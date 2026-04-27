@@ -10,12 +10,29 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+export type PlanTier =
+  | "free"
+  | "founding_solo"
+  | "solo"
+  | "duo"
+  | "small_team"
+  | "studio";
+
 export type User = {
   id: string;
   login: string;
   email: string | null;
   avatarUrl: string | null;
-  planTier: "free" | "pro" | "team";
+  planTier: PlanTier;
+};
+
+export type BillingInfo = {
+  planTier: PlanTier;
+  paddleSubscriptionId: string | null;
+  subscriptionStatus: string | null;
+  subscriptionEndsAt: string | null;
+  billingPeriod: string | null;
+  prUsedThisMonth: number;
 };
 
 export type Installation = {
@@ -31,4 +48,10 @@ export const api = {
   me: () => apiFetch<User>("/auth/me"),
   logout: () => apiFetch<{ ok: boolean }>("/auth/logout", { method: "POST" }),
   installations: () => apiFetch<Installation[]>("/app"),
+  billing: {
+    info: () => apiFetch<BillingInfo>("/billing/info"),
+    cancel: () => apiFetch<{ ok: boolean }>("/billing/cancel", { method: "POST" }),
+    resume: () => apiFetch<{ ok: boolean }>("/billing/resume", { method: "POST" }),
+    portalUrl: () => apiFetch<{ url: string | null }>("/billing/portal-url"),
+  },
 };
