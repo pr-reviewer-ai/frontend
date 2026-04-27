@@ -44,10 +44,28 @@ export type Installation = {
   repositories: Array<{ id: number; fullName: string; private: boolean; active: boolean }>;
 };
 
+export type PrReview = {
+  id: string;
+  repoFullName: string;
+  prNumber: number;
+  commitSha: string;
+  status: "pending" | "processing" | "completed" | "failed";
+  reviewId: number | null;
+  createdAt: string;
+};
+
+export type ReviewsPage = {
+  reviews: PrReview[];
+  total: number;
+  page: number;
+  pages: number;
+};
+
 export const api = {
   me: () => apiFetch<User>("/auth/me"),
   logout: () => apiFetch<{ ok: boolean }>("/auth/logout", { method: "POST" }),
   installations: () => apiFetch<Installation[]>("/app"),
+  reviews: (page = 1) => apiFetch<ReviewsPage>(`/reviews?page=${page}&limit=20`),
   billing: {
     info: () => apiFetch<BillingInfo>("/billing/info"),
     cancel: () => apiFetch<{ ok: boolean }>("/billing/cancel", { method: "POST" }),

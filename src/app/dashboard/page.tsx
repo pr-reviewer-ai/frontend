@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { api, type User, type Installation, type BillingInfo, type PlanTier } from "@/lib/api";
+import { api, type User, type Installation, type BillingInfo, type PlanTier, type PrReview, type ReviewsPage } from "@/lib/api";
 
 // ── Plan definitions (mirrors landing page) ──────────────────────────────────
 
@@ -133,9 +133,11 @@ export default function Dashboard() {
   const [user, setUser] = useState<User | null>(null);
   const [installs, setInstalls] = useState<Installation[]>([]);
   const [billing, setBilling] = useState<BillingInfo | null>(null);
+  const [reviewsPage, setReviewsPage] = useState<ReviewsPage | null>(null);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [activeTab, setActiveTab] = useState<"repos" | "billing">("repos");
+  const [activeTab, setActiveTab] = useState<"repos" | "billing" | "reviews">("repos");
 
   const APP_URL = process.env.NEXT_PUBLIC_GITHUB_APP_INSTALL_URL ?? "#";
 
@@ -145,6 +147,15 @@ export default function Dashboard() {
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
   }, []);
+
+  useEffect(() => {
+    if (activeTab !== "reviews" || reviewsPage) return;
+    setReviewsLoading(true);
+    api.reviews(1)
+      .then(setReviewsPage)
+      .catch(() => {})
+      .finally(() => setReviewsLoading(false));
+  }, [activeTab, reviewsPage]);
 
   async function logout() {
     await api.logout();
@@ -196,7 +207,7 @@ export default function Dashboard() {
 
         {/* tabs */}
         <div className="flex gap-0 border border-[var(--border)] rounded overflow-hidden w-fit">
-          {(["repos", "billing"] as const).map((t) => (
+          {(["repos", "reviews", "billing"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setActiveTab(t)}
@@ -273,6 +284,21 @@ export default function Dashboard() {
               </a>
             )}
           </div>
+        )}
+
+        {/* ── REVIEWS TAB ── */}
+        {activeTab === "reviews" && (
+          <ReviewsSection
+            data={reviewsPage}
+            loading={reviewsLoading}
+            onPageChange={(p: number) => {
+              setReviewsLoading(true);
+              api.reviews(p)
+                .then(setReviewsPage)
+                .catch(() => {})
+                .finally(() => setReviewsLoading(false));
+            }}
+          />
         )}
 
         {/* ── BILLING TAB ── */}
@@ -670,6 +696,94 @@ function TierBadge({ tier }: { tier: PlanTier }) {
     >
       {labels[tier]}
     </span>
+  );
+}
+
+// ── Reviews Section ───────────────────────────────────────────────────────────
+
+function ReviewsSection({
+  data,
+  loading,
+  onPageChange,
+}: {
+  data: ReviewsPage | null;
+  loading: boolean;
+  onPageChange: (page: number) => void;
+}) {
+  if (loading || !data) {
+    return <Screen><Spinner /></Screen>;
+  }
+
+  const statusColor: Record<string, string> = {
+    completed: "var(--green)",
+    failed: "var(--red)",
+    processing: "#f5a623",
+    pending: "var(--text-dim)",
+  };
+
+  return (
+    <div className="space-y-4">
+      {data.reviews.length === 0 && (
+        <div className="border border-dashed border-[var(--border)] rounded p-6 text-center">
+          <p className="text-[var(--text-dim)]">no reviews yet — open a pull request in a watched repo to trigger your first review</p>
+        </div>
+      )}
+
+      {data.reviews.length > 0 && (
+        <div className="border border-[var(--border)] rounded overflow-hidden">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className="border-b border-[var(--border)] text-[var(--text-dim)] uppercase tracking-wider">
+                <th className="text-left px-4 py-2 font-medium">repo</th>
+                <th className="text-left px-4 py-2 font-medium">pr</th>
+                <th className="text-left px-4 py-2 font-medium">commit</th>
+                <th className="text-left px-4 py-2 font-medium">status</th>
+                <th className="text-left px-4 py-2 font-medium">date</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-[var(--border)]">
+              {data.reviews.map((r) => (
+                <tr key={r.id} className="hover:bg-[var(--surface)] transition-colors">
+                  <td className="px-4 py-2 text-[var(--text)]">{r.repoFullName}</td>
+                  <td className="px-4 py-2 text-[var(--text-dim)]">#{r.prNumber}</td>
+                  <td className="px-4 py-2 font-mono text-[var(--text-dim)]">{r.commitSha}</td>
+                  <td className="px-4 py-2">
+                    <span style={{ color: statusColor[r.status] ?? "var(--text-dim)" }}>
+                      {r.status}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2 text-[var(--text-dim)]">
+                    {new Date(r.createdAt).toLocaleDateString("en-US", {
+                      month: "short", day: "numeric", year: "numeric",
+                    })}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {data.pages > 1 && (
+        <div className="flex items-center gap-2 text-xs">
+          <button
+            onClick={() => onPageChange(data.page - 1)}
+            disabled={data.page <= 1}
+            className="px-3 py-1.5 border border-[var(--border)] rounded text-[var(--text-dim)] hover:text-[var(--text)] disabled:opacity-30 transition-colors"
+          >
+            prev
+          </button>
+          <span className="text-[var(--text-dim)]">page {data.page} of {data.pages}</span>
+          <button
+            onClick={() => onPageChange(data.page + 1)}
+            disabled={data.page >= data.pages}
+            className="px-3 py-1.5 border border-[var(--border)] rounded text-[var(--text-dim)] hover:text-[var(--text)] disabled:opacity-30 transition-colors"
+          >
+            next
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 
