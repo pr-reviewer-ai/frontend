@@ -3,7 +3,7 @@ import { PaddleInit } from "./paddle-init";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Mergecheck",
+  title: "MergeWell",
   description: "AI-powered pull request reviews for React, Next.js, TypeScript & Node.js",
 };
 

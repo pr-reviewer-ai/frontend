@@ -173,17 +173,15 @@ export default function Dashboard() {
       {/* header */}
       <header className="border-b border-[var(--border)] px-6 py-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div
-            style={{
-              width: 24, height: 24, borderRadius: 6,
-              background: "var(--accent)",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              fontSize: 10, fontWeight: 700, color: "white",
-            }}
-          >
-            MC
-          </div>
-          <span className="font-bold text-[var(--text)]">Mergecheck</span>
+          <svg width="24" height="24" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" rx="6" fill="var(--accent)"/>
+            <circle cx="9.5" cy="7.5" r="2.3" fill="white"/>
+            <circle cx="18.5" cy="7.5" r="2.3" fill="white"/>
+            <circle cx="14" cy="20.5" r="2.3" fill="white"/>
+            <path d="M9.5 9.8 C9.5 15.5 14 15 14 18.2" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+            <path d="M18.5 9.8 C18.5 15.5 14 15 14 18.2" stroke="white" strokeWidth="1.8" strokeLinecap="round"/>
+          </svg>
+          <span className="font-bold text-[var(--text)]">MergeWell</span>
         </div>
         <div className="flex items-center gap-4">
           <span className="text-[var(--text-dim)]">@{user.login}</span>
@@ -458,11 +456,11 @@ function BillingSection({
               }}
             />
           </div>
-          {currentPlan && (
+          {/* currentPlan && (
             <p className="text-[10px] text-[var(--text-dim)]">
               ${currentPlan.overageRate.toFixed(2)} per extra PR
             </p>
-          )}
+          ) */}
         </div>
       </div>
 
@@ -615,7 +613,7 @@ function PlanCard({
         {[
           `${plan.devs} developer${plan.devs > 1 ? "s" : ""}`,
           ...plan.features,
-          `$${plan.overageRate.toFixed(2)} per extra PR`,
+          // `$${plan.overageRate.toFixed(2)} per extra PR`, // overage charging — future feature
         ].map((f) => (
           <li key={f} className="flex items-start gap-1.5 text-[11px] text-[var(--text-dim)]">
             <span className="text-[var(--green)] font-bold mt-px">✓</span>
