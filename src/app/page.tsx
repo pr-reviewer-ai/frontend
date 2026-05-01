@@ -28,7 +28,7 @@ export default async function Home() {
             pr-reviewer
           </h1>
           <p className="text-[var(--text-dim)] mt-1">
-            AI code review on every pull request.
+            MergeWell on every pull request.
           </p>
         </div>
 
