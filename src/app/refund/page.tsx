@@ -37,7 +37,7 @@ export default function RefundPage() {
         within <strong className="text-[var(--text)]">7 calendar days</strong> of your first
         paid subscription charge. This applies once per customer across all plans. To claim
         this, email{" "}
-        <a href="mailto:billing@mergewell.dev">billing@mergewell.dev</a> with the subject
+        <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a> with the subject
         line <em>&quot;Refund request&quot;</em> and include the email address on your account. We
         will process the refund within 5 business days.
       </Section>
@@ -55,7 +55,7 @@ export default function RefundPage() {
         30-day billing period, affected subscribers are eligible for a pro-rated service
         credit equal to the proportion of the billing period that was affected. Credits are
         applied to the next invoice and are not redeemable for cash. To report downtime,
-        email <a href="mailto:billing@mergewell.dev">billing@mergewell.dev</a> with the
+        email <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a> with the
         subject line <em>&quot;Downtime credit request&quot;</em> within 14 days of the incident.
       </Section>
 
@@ -68,7 +68,7 @@ export default function RefundPage() {
 
       <Section title="5. Duplicate Charges">
         If you were charged more than once for the same billing period, email{" "}
-        <a href="mailto:billing@mergewell.dev">billing@mergewell.dev</a> with your
+        <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a> with your
         account email and the charge dates. We will verify with Paddle and refund any
         duplicate charge within 5 business days.
       </Section>
@@ -97,7 +97,7 @@ export default function RefundPage() {
 
       <Section title="8. Contact">
         For any billing questions or refund requests, email{" "}
-        <a href="mailto:billing@mergewell.dev">billing@mergewell.dev</a>. Please include
+        <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a>. Please include
         your account email and a brief description of the issue.
       </Section>
 

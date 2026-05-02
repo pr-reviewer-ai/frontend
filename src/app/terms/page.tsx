@@ -120,7 +120,7 @@ export default function TermsPage() {
 
       <Section title="14. Contact">
         Questions? Email{" "}
-        <a href="mailto:legal@mergewell.dev">legal@mergewell.dev</a>.
+        <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a>.
       </Section>
 
       <footer className="pt-8 border-t border-[var(--border)] text-[var(--text-dim)] text-xs flex gap-6 flex-wrap">

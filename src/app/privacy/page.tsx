@@ -74,7 +74,7 @@ export default function PrivacyPage() {
         are processed in memory and not written to long-term storage. Usage logs are retained
         for 90 days. You can request deletion of your account and associated data at any time
         by emailing{" "}
-        <a href="mailto:privacy@mergewell.dev">privacy@mergewell.dev</a>.
+        <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a>.
       </Section>
 
       <Section title="6. Security">
@@ -86,7 +86,7 @@ export default function PrivacyPage() {
       <Section title="7. Your Rights">
         Depending on your jurisdiction you may have rights to access, correct, export, or
         delete your personal data. To exercise any of these rights, email{" "}
-        <a href="mailto:privacy@mergewell.dev">privacy@mergewell.dev</a>. We will respond
+        <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a>. We will respond
         within 30 days.
       </Section>
 
@@ -98,7 +98,7 @@ export default function PrivacyPage() {
 
       <Section title="9. Contact">
         Questions about this policy? Email{" "}
-        <a href="mailto:privacy@mergewell.dev">privacy@mergewell.dev</a>.
+        <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a>.
       </Section>
 
       <footer className="pt-8 border-t border-[var(--border)] text-[var(--text-dim)] text-xs flex gap-6 flex-wrap">
