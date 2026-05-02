@@ -1,6 +1,7 @@
 "use client";
 
 import Script from "next/script";
+import { env } from "next-runtime-env";
 
 export function PaddleInit() {
   return (
@@ -10,10 +11,10 @@ export function PaddleInit() {
       onLoad={() => {
         const Paddle = (window as any).Paddle;
         if (!Paddle) return;
-        const token = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN;
-        const env = process.env.NEXT_PUBLIC_PADDLE_ENV; // "sandbox" or "production"
+        const token = env("NEXT_PUBLIC_PADDLE_CLIENT_TOKEN");
+        const paddleEnv = env("NEXT_PUBLIC_PADDLE_ENV");
         if (token) {
-          if (env === "sandbox") {
+          if (paddleEnv === "sandbox") {
             Paddle.Environment.set("sandbox");
           }
           Paddle.Initialize({ token });

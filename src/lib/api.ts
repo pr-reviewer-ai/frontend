@@ -1,7 +1,8 @@
-const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+import { env } from "next-runtime-env";
 
 async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, {
+  const base = env("NEXT_PUBLIC_API_URL") ?? "http://localhost:3001";
+  const res = await fetch(`${base}${path}`, {
     credentials: "include",
     ...init,
     headers: { "Content-Type": "application/json", ...(init?.headers ?? {}) },

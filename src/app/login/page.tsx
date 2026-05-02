@@ -1,9 +1,10 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { env } from "next-runtime-env";
 
 export default async function Home() {
-  const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+  const API = env("NEXT_PUBLIC_API_URL") ?? "http://localhost:3001";
 
   const cookieStore = await cookies();
   const token = cookieStore.get("token");

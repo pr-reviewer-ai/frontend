@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { api, type User, type Installation, type BillingInfo, type PlanTier, type PrReview, type ReviewsPage } from "@/lib/api";
+import { env } from "next-runtime-env";
 
 // ── Plan definitions (mirrors landing page) ──────────────────────────────────
 
@@ -35,7 +36,7 @@ const PLANS: Plan[] = [
     overageRate: 0.5,
     features: ["1 repo", "30 PRs/month", "TypeScript + React analysis", "GitHub inline comments", "14-day free trial"],
     founderOnly: true,
-    priceIdMonthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_FOUNDING_SOLO ?? "",
+    priceIdMonthly: env("NEXT_PUBLIC_PADDLE_PRICE_FOUNDING_SOLO") ?? "",
     priceIdAnnual: null,
   },
   {
@@ -49,8 +50,8 @@ const PLANS: Plan[] = [
     prsPerMonth: 30,
     overageRate: 0.5,
     features: ["1 repo", "30 PRs/month", "TypeScript + React analysis", "GitHub inline comments", "14-day free trial"],
-    priceIdMonthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_SOLO_MONTHLY ?? "",
-    priceIdAnnual: process.env.NEXT_PUBLIC_PADDLE_PRICE_SOLO_ANNUAL ?? "",
+    priceIdMonthly: env("NEXT_PUBLIC_PADDLE_PRICE_SOLO_MONTHLY") ?? "",
+    priceIdAnnual: env("NEXT_PUBLIC_PADDLE_PRICE_SOLO_ANNUAL") ?? "",
   },
   {
     id: "duo",
@@ -63,8 +64,8 @@ const PLANS: Plan[] = [
     prsPerMonth: 80,
     overageRate: 0.4,
     features: ["3 repos", "80 PRs/month", "Full stack analysis", "GitHub inline comments", "14-day free trial"],
-    priceIdMonthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_DUO_MONTHLY ?? "",
-    priceIdAnnual: process.env.NEXT_PUBLIC_PADDLE_PRICE_DUO_ANNUAL ?? "",
+    priceIdMonthly: env("NEXT_PUBLIC_PADDLE_PRICE_DUO_MONTHLY") ?? "",
+    priceIdAnnual: env("NEXT_PUBLIC_PADDLE_PRICE_DUO_ANNUAL") ?? "",
   },
   {
     id: "small_team",
@@ -78,8 +79,8 @@ const PLANS: Plan[] = [
     overageRate: 0.3,
     features: ["Unlimited repos", "200 PRs/month", "Team pattern tracking", "Priority review queue", "14-day free trial"],
     popular: true,
-    priceIdMonthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_SMALL_TEAM_MONTHLY ?? "",
-    priceIdAnnual: process.env.NEXT_PUBLIC_PADDLE_PRICE_SMALL_TEAM_ANNUAL ?? "",
+    priceIdMonthly: env("NEXT_PUBLIC_PADDLE_PRICE_SMALL_TEAM_MONTHLY") ?? "",
+    priceIdAnnual: env("NEXT_PUBLIC_PADDLE_PRICE_SMALL_TEAM_ANNUAL") ?? "",
   },
   {
     id: "studio",
@@ -92,8 +93,8 @@ const PLANS: Plan[] = [
     prsPerMonth: 600,
     overageRate: 0.25,
     features: ["Unlimited repos", "600 PRs/month", "HIPAA Mode (coming soon)", "Team analytics dashboard", "14-day free trial"],
-    priceIdMonthly: process.env.NEXT_PUBLIC_PADDLE_PRICE_STUDIO_MONTHLY ?? "",
-    priceIdAnnual: process.env.NEXT_PUBLIC_PADDLE_PRICE_STUDIO_ANNUAL ?? "",
+    priceIdMonthly: env("NEXT_PUBLIC_PADDLE_PRICE_STUDIO_MONTHLY") ?? "",
+    priceIdAnnual: env("NEXT_PUBLIC_PADDLE_PRICE_STUDIO_ANNUAL") ?? "",
   },
 ];
 
@@ -139,7 +140,7 @@ export default function Dashboard() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"repos" | "billing" | "reviews">("repos");
 
-  const APP_URL = process.env.NEXT_PUBLIC_GITHUB_APP_INSTALL_URL ?? "#";
+  const APP_URL = env("NEXT_PUBLIC_GITHUB_APP_INSTALL_URL") ?? "#";
 
   useEffect(() => {
     Promise.all([api.me(), api.installations(), api.billing.info()])
