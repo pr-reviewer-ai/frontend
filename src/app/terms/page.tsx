@@ -15,10 +15,11 @@ export default function TermsPage() {
       </div>
 
       <Section title="1. Acceptance">
-        By installing or using MergeWell (&quot;the Service&quot;), you agree to these Terms of Service
-        (&quot;Terms&quot;). If you are using the Service on behalf of an organisation, you represent
-        that you have authority to bind that organisation. If you do not agree to these Terms,
-        do not use the Service.
+        MergeWell is operated by <strong className="text-[var(--text)]">Codewave Labs</strong>{" "}
+        (&quot;we&quot;, &quot;us&quot;, &quot;our&quot;). By installing or using MergeWell (&quot;the Service&quot;), you agree
+        to these Terms of Service (&quot;Terms&quot;). If you are using the Service on behalf of an
+        organisation, you represent that you have authority to bind that organisation. If you
+        do not agree to these Terms, do not use the Service.
       </Section>
 
       <Section title="2. Description of Service">

@@ -17,8 +17,8 @@ export default function RefundPage() {
       <Section title="TL;DR">
         <div className="border border-[var(--border)] rounded p-4 space-y-1">
           {[
-            ["7-day money-back", "Full refund within 7 days of your first payment, no questions asked."],
-            ["Pro-rated cancellation", "Cancel anytime; access continues until the end of the billing period. No partial refunds after day 7."],
+            ["14-day money-back", "Full refund within 14 days of any payment, no questions asked."],
+            ["Pro-rated cancellation", "Cancel anytime; access continues until the end of the billing period. No partial refunds after day 14."],
             ["Service outages", "Credit issued for verified downtime exceeding 1 hour in a billing period."],
           ].map(([label, desc]) => (
             <div key={label as string} className="flex gap-3">
@@ -32,11 +32,10 @@ export default function RefundPage() {
         </div>
       </Section>
 
-      <Section title="1. 7-Day Money-Back Guarantee">
+      <Section title="1. 14-Day Money-Back Guarantee">
         If you are not satisfied with MergeWell for any reason, you may request a full refund
-        within <strong className="text-[var(--text)]">7 calendar days</strong> of your first
-        paid subscription charge. This applies once per customer across all plans. To claim
-        this, email{" "}
+        within <strong className="text-[var(--text)]">14 calendar days</strong> of any
+        paid subscription charge. To claim this, email{" "}
         <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a> with the subject
         line <em>&quot;Refund request&quot;</em> and include the email address on your account. We
         will process the refund within 5 business days.
@@ -60,10 +59,10 @@ export default function RefundPage() {
       </Section>
 
       <Section title="4. Annual Plans">
-        Annual plans are eligible for a full refund within 7 days of purchase under the same
-        money-back guarantee (Section 1). After 7 days, annual subscriptions are
-        non-refundable. If you downgrade or cancel mid-year, access continues until the
-        annual period ends — no partial refund is issued for remaining months.
+        Annual plans are eligible for a full refund within 14 days of purchase under the same
+        money-back guarantee (Section 1). After 14 days, you may cancel at any time and
+        access continues until the annual period ends — no partial refund is issued for
+        remaining months.
       </Section>
 
       <Section title="5. Duplicate Charges">
@@ -73,29 +72,13 @@ export default function RefundPage() {
         duplicate charge within 5 business days.
       </Section>
 
-      <Section title="6. Exceptions">
-        Refunds will not be issued in the following cases:
-        <ul className="space-y-1 mt-2">
-          {[
-            "Accounts terminated for violation of the Terms of Service",
-            "Requests made after the 7-day guarantee window with no applicable credit event",
-            "Downgrade from a higher plan to a lower plan (access simply adjusts at next renewal)",
-          ].map((item) => (
-            <li key={item} className="flex gap-2">
-              <span className="text-[var(--red)]">−</span>
-              {item}
-            </li>
-          ))}
-        </ul>
-      </Section>
-
-      <Section title="7. How Refunds Are Processed">
+      <Section title="6. How Refunds Are Processed">
         Refunds are issued to the original payment method via Paddle, our payment processor.
         Depending on your bank, it may take 5–10 business days for the credit to appear.
         We cannot redirect refunds to a different card or account.
       </Section>
 
-      <Section title="8. Contact">
+      <Section title="7. Contact">
         For any billing questions or refund requests, email{" "}
         <a href="mailto:team.mergewell@gmail.com">team.mergewell@gmail.com</a>. Please include
         your account email and a brief description of the issue.
