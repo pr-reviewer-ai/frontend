@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default async function Home() {
   const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
@@ -55,10 +56,16 @@ export default async function Home() {
           Sign in with GitHub
         </a>
 
-        <p className="text-[10px] text-center text-[var(--muted)]" style={{ color: "var(--text-dim)" }}>
+        <p className="text-[10px] text-center" style={{ color: "var(--text-dim)" }}>
           By signing in you agree to let pr-reviewer post review comments on your PRs.
         </p>
       </div>
+
+      <footer className="mt-12 flex gap-5 justify-center text-[10px]" style={{ color: "var(--text-dim)" }}>
+        <Link href="/privacy">Privacy</Link>
+        <Link href="/terms">Terms</Link>
+        <Link href="/refund">Refunds</Link>
+      </footer>
     </main>
   );
 }
