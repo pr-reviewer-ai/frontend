@@ -231,7 +231,7 @@ export default function Dashboard() {
                   href={APP_URL}
                   className="inline-block px-4 py-2 rounded border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent-dim)] transition-colors text-xs"
                 >
-                  + install GitHub App
+                  + configure GitHub App
                 </a>
               </div>
             )}
