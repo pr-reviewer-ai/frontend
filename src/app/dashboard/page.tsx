@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { api, type User, type Installation, type BillingInfo, type PlanTier, type PrReview, type ReviewsPage } from "@/lib/api";
 import { env } from "next-runtime-env";
 
@@ -131,6 +132,7 @@ function openPaddleCheckout(priceId: string, user: User) {
 // ── Main component ────────────────────────────────────────────────────────────
 
 export default function Dashboard() {
+  const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [installs, setInstalls] = useState<Installation[]>([]);
   const [billing, setBilling] = useState<BillingInfo | null>(null);
@@ -145,9 +147,15 @@ export default function Dashboard() {
   useEffect(() => {
     Promise.all([api.me(), api.installations(), api.billing.info()])
       .then(([u, i, b]) => { setUser(u); setInstalls(i); setBilling(b); })
-      .catch((e) => setError(e.message))
+      .catch((e) => {
+        if (e.message.includes("401")) {
+          router.push("/login");
+        } else {
+          setError(e.message);
+        }
+      })
       .finally(() => setLoading(false));
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (activeTab !== "reviews" || reviewsPage) return;
@@ -165,7 +173,7 @@ export default function Dashboard() {
 
   if (loading) return <Screen><Spinner /></Screen>;
   if (error) return <Screen><p className="text-[var(--red)]">error: {error}</p></Screen>;
-  if (!user) { window.location.href = "/"; return null; }
+  if (!user) { router.push("/login"); return null; }
 
   const totalRepos = installs.flatMap((i) => i.repositories).filter((r) => r.active).length;
 
