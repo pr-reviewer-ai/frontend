@@ -226,7 +226,7 @@ export default function Dashboard() {
           <div className="space-y-4">
             {installs.length === 0 && (
               <div className="border border-dashed border-[var(--border)] rounded p-6 text-center space-y-3">
-                <p className="text-[var(--text-dim)]">no GitHub installations yet</p>
+                <p className="text-[var(--text-dim)]">no repositories configured yet</p>
                 <a
                   href={APP_URL}
                   className="inline-block px-4 py-2 rounded border border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent-dim)] transition-colors text-xs"
