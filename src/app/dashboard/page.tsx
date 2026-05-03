@@ -206,7 +206,7 @@ export default function Dashboard() {
 
         {/* tabs */}
         <div className="flex gap-0 border border-[var(--border)] rounded overflow-hidden w-fit">
-          {(["repos", "reviews", "billing"] as const).map((t) => (
+          {(["repos", "reviews", "billing"] as const).filter((t) => t !== "billing").map((t) => (
             <button
               key={t}
               onClick={() => setActiveTab(t)}
@@ -300,10 +300,16 @@ export default function Dashboard() {
           />
         )}
 
-        {/* ── BILLING TAB ── */}
-        {activeTab === "billing" && billing && (
-          <BillingSection user={user} billing={billing} onBillingChange={setBilling} />
+        {/* ── BILLING TAB (hidden) ── */}
+        {false && activeTab === "billing" && billing && (
+          <BillingSection user={user!} billing={billing!} onBillingChange={setBilling} />
         )}
+
+        {/* ── FREE BANNER ── */}
+        <div className="border border-[var(--accent)] rounded p-4 text-center" style={{ background: "rgba(124,106,255,0.05)" }}>
+          <p className="text-sm font-semibold text-[var(--text)] mb-1">MergeWell is free during early access</p>
+          <p className="text-xs text-[var(--text-dim)]">All PR reviews are on us — no card required. We'll notify you before anything changes.</p>
+        </div>
       </main>
     </div>
   );
