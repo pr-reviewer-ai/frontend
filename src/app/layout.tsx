@@ -40,6 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-full">
         {children}
         <PaddleInit />
+        <Script id="crisp-chat">
+          {`window.$crisp=[];window.CRISP_WEBSITE_ID="a652aa6c-d2ae-432b-8a4b-3598ec4a1d37";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`}
+        </Script>
       </body>
     </html>
   );

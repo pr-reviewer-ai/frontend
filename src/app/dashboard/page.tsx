@@ -559,7 +559,13 @@ function PlanCard({
   const isUpgrade = rank > currentRank;
   const isDowngrade = rank < currentRank;
 
+  const isTeamPlan = plan.id === "small_team" || plan.id === "studio";
+
   function handleSubscribe() {
+    if (isTeamPlan) {
+      window.location.href = "mailto:team.mergewell@gmail.com";
+      return;
+    }
     if (!priceId) {
       alert("This plan is not yet available. Check back soon!");
       return;
@@ -636,12 +642,12 @@ function PlanCard({
           onClick={handleSubscribe}
           className="w-full py-2 rounded text-xs font-semibold transition-colors"
           style={{
-            background: isUpgrade ? "var(--accent)" : "transparent",
-            color: isUpgrade ? "white" : "var(--text-dim)",
-            border: isUpgrade ? "none" : "1px solid var(--border)",
+            background: isTeamPlan || isUpgrade ? "var(--accent)" : "transparent",
+            color: isTeamPlan || isUpgrade ? "white" : "var(--text-dim)",
+            border: isTeamPlan || isUpgrade ? "none" : "1px solid var(--border)",
           }}
         >
-          {isUpgrade ? "upgrade" : isDowngrade ? "downgrade" : "select"}
+          {isTeamPlan ? "contact us" : isUpgrade ? "upgrade" : isDowngrade ? "downgrade" : "select"}
         </button>
       )}
 
