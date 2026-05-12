@@ -62,11 +62,19 @@ export type ReviewsPage = {
   pages: number;
 };
 
+export type ReviewComment = {
+  path: string;
+  line: number;
+  body: string;
+};
+
 export const api = {
   me: () => apiFetch<User>("/auth/me"),
   logout: () => apiFetch<{ ok: boolean }>("/auth/logout", { method: "POST" }),
   installations: () => apiFetch<Installation[]>("/app"),
   reviews: (page = 1) => apiFetch<ReviewsPage>(`/reviews?page=${page}&limit=20`),
+  testReview: (body: { filename: string; patch: string; prTitle?: string; repoFullName?: string }) =>
+    apiFetch<{ comments: ReviewComment[] }>("/reviews/test", { method: "POST", body: JSON.stringify(body) }),
   billing: {
     info: () => apiFetch<BillingInfo>("/billing/info"),
     cancel: () => apiFetch<{ ok: boolean }>("/billing/cancel", { method: "POST" }),
