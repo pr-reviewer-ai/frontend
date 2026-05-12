@@ -214,7 +214,7 @@ export default function Dashboard() {
 
         {/* tabs */}
         <div className="flex gap-0 border border-[var(--border)] rounded overflow-hidden w-fit">
-          {(["repos", "reviews", "billing"] as const).filter((t) => t !== "billing").map((t) => (
+          {(["repos", "reviews", "billing"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setActiveTab(t)}
@@ -308,8 +308,8 @@ export default function Dashboard() {
           />
         )}
 
-        {/* ── BILLING TAB (hidden) ── */}
-        {false && activeTab === "billing" && billing && (
+        {/* ── BILLING TAB ── */}
+        {activeTab === "billing" && billing && (
           <BillingSection user={user!} billing={billing!} onBillingChange={setBilling} />
         )}
 
